@@ -21,4 +21,5 @@ $ python dashboard.py
 
 In gtkterm you should see FF FF EF - reply with 10 and the dashboard.py window should come to life. Gtkterm -> File -> send raw file, select the test_data.hex file.
 
+Currently the data displayed is MPH, RPM (large centre arcs), AAC, MAF, temperature and battery voltage. The script is actually streaming 14 data values but these are the most useful to display. Pressing f will make it go fullscreen, w will make it revert back to windowed mode.
 
