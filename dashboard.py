@@ -27,7 +27,6 @@ import os
 import pygame
 import time
 import math
-import pygame.camera
 from pygame.locals import *
 import pygame.gfxdraw
 import serial
@@ -163,15 +162,6 @@ size = width, height = 1320, 740
 
 monitorX = pygame.display.Info().current_w
 monitorY = pygame.display.Info().current_h
-
-camFullscreenX = (monitorX / 2) + 25
-camFullscreenY = (monitorY / 2) - 363
-
-camWindowedX = (width / 2) + 25
-camWindowedY = (height / 2) - 363
-
-camX = camWindowedX
-camY = camWindowedY
 
 surface1FullscreenX = (monitorX / 2) - 650
 surface1FullscreenY = (monitorY / 2) - 360
@@ -454,8 +444,6 @@ while READ_THREAD == True:
         if event.type is KEYDOWN and event.key == K_w:
             pygame.display.set_mode((width,height))
             pygame.mouse.set_visible(False)
-            camX = camWindowedX
-            camY = camWindowedY
             surface1X = surface1WindowedX
             surface1Y = surface1WindowedY
             surface2X = surface2WindowedX
@@ -472,8 +460,6 @@ while READ_THREAD == True:
 
         if event.type is KEYDOWN and event.key == K_f:
             pygame.display.set_mode((monitorX,monitorY), FULLSCREEN)
-            camX = camFullscreenX
-            camY = camFullscreenY
             surface1X = surface1FullscreenX
             surface1Y = surface1FullscreenY
             surface2X = surface2FullscreenX
