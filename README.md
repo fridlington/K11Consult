@@ -1,7 +1,7 @@
 K11Consult
 ==========
 
-A python project to interact with the ECU of Nissan vehicles that utilise the Nissan Consult version 1 protocol.
+A python project to interact with the ECU of Nissan vehicles that utilise the Nissan Consult protocol.
 
 The protocol reads and writes hex via a serial connection, with dashboard.py sending the commands and reading in realtime the resultant data stream from the ECU. The script is essentially in two parts; a non blocking thread that interacts with the ECU, and a gui using pygame that displays the data in the style of a dashboard. There are no external images used as I've written this for minimal CPU usage and to show what's possible using the drawing commands of pygame - although it does use pygame.gfxdraw for drawing arcs, something that pygame doesn't support. A YouTube video can be [found here](http://youtu.be/_3wbpUQlXTM) of the program running in both windowed and fullscreen modes.
 
