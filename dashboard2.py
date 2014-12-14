@@ -316,33 +316,14 @@ def indicatorNeedle(
                         doubleLine,singleLine,1,backgroundColour)
 
 
-READ_THREAD = True #False
-MPH_Value = 100
-RPM_Value = 5000
+MPH_Value = 1
+RPM_Value = 10
 TEMP_Value = 100
-BATT_Value = 14.5
-AAC_Value = 100
-MAF_Value = 500
+BATT_Value = 1
+AAC_Value = 1
+MAF_Value = 1
 
-while READ_THREAD == False:
-
-    try:
-
-        PORT.flushInput()
-        PORT.write('\xFF\xFF\xEF')
-        time.sleep(2)
-        Connected = PORT.read(1)
-        if Connected == '\x10':
-
-            READ_THREAD = True
-            ReadStream(True)
-
-    except ValueError:
-
-            PORT.open()
-
-
-while READ_THREAD == True:
+while True:
 
     for event in pygame.event.get():
 
@@ -409,5 +390,35 @@ while READ_THREAD == True:
     screen.blit(surface6,(surface6X,surface6Y))
 
     time.sleep(0.02)
+    
+    if MPH_Value < 99:
+        MPH_Value = MPH_Value + 1
+    else:
+        MPH_Value = 1
+    
+    if RPM_Value < 5000:
+        RPM_Value = RPM_Value + 12
+    else:
+        RPM_Value = 10
+    
+    if MAF_Value < 400:
+        MAF_Value = MAF_Value + 1
+    else:
+        MAF_Value = 1
+        
+    if AAC_Value < 100:
+        AAC_Value = AAC_Value + 1
+    else:
+        AAC_Value = 1
+        
+    if BATT_Value < 16:
+        BATT_Value = BATT_Value + 0.2
+    else:
+        BATT_Value = 1
+        
+    if TEMP_Value < 140:
+        TEMP_Value = TEMP_Value + 1
+    else:
+        TEMP_Value = 1
 
     pygame.display.update()
