@@ -29,131 +29,42 @@ import time
 import math
 from pygame.locals import *
 import pygame.gfxdraw
-import serial
-import threading
-import datetime
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 
 pygame.init()
 
-PORT = serial.Serial('/dev/pts/10', 9600, timeout=None)
+def convertToMPH(self,inputData):
 
-########################################################################
-class ReadStream(threading.Thread):
+    return int(round ((inputData * 2.11) * 0.621371192237334))
 
-    def __init__(self, daemon):
-        threading.Thread.__init__(self)
-        self.daemon = daemon
-        self.start()
+def convertToRev(self,inputData):
 
-    def run(self):
-        PORT.write('\x5A\x0B\x5A\x01\x5A\x08\x5A\x0C\x5A\x0D\x5A\x03\x5A\x05\x5A\x09\x5A\x13\x5A\x16\x5A\x17\x5A\x1A\x5A\x1C\x5A\x21\xF0')
+    return int(round((inputData * 12.5),2))
 
-        global MPH_Value
-        global RPM_Value
-        global TEMP_Value
-        global BATT_Value
-        global MAF_Value
-        global AAC_Value
-        global INJ_Value
-        global TIM_Value
+def convertToTemp(self,inputData):
 
-        global ECU2_Value
-        global ECU5_Value
+    return inputData - 50
 
-        MPH_Value = 0
-        RPM_Value = 0
-        TEMP_Value = 0
-        BATT_Value = 0
-        MAF_Value = 0
-        AAC_Value = 0
-        INJ_Value = 0
-        TIM_Value = 0
+def convertToBattery(self,inputData):
 
-        ECU2_Value = 0
-        ECU5_Value = 0
+    return round(((inputData * 80) / 1000),1)
 
-        fileName = datetime.datetime.now().strftime("%d-%m-%y-%H-%M")
+def convertToMAF(self,inputData):
 
-        while READ_THREAD == True:
+    return inputData * 5
 
-            incomingData = PORT.read(16)
+def convertToAAC(self,inputData):
 
-            #self.logToFile(incomingData,fileName)
+    return inputData / 2
 
-            if incomingData:
+def convertToInjection(self,inputData):
 
-                dataList = map(ord,incomingData)
-                Header = 255
-                returnBytes = 14
+    return inputData / 100
 
-                try:
-                    if dataList[-4] == Header and dataList[-3] == returnBytes:
+def convertToTiming(self,inputData):
 
-
-                        try:
-                            MPH_Value = self.convertToMPH(int(dataList[-2]))
-                            RPM_Value = self.convertToRev(int(dataList[-1]))
-                            TEMP_Value = self.convertToTemp(int(dataList[0]))
-                            BATT_Value = self.convertToBattery(float(dataList[1]))
-                            AAC_Value = self.convertToAAC(int(dataList[8]))
-                            MAF_Value = self.convertToMAF(int(dataList[5]))
-
-                            time.sleep(0.004)
-
-
-                        except (ValueError, IndexError):
-                            pass
-
-                    else:
-                        pass
-
-                except (ValueError, IndexError):
-                    pass
-
-            else:
-                pass
-
-
-    def convertToMPH(self,inputData):
-
-        return int(round ((inputData * 2.11) * 0.621371192237334))
-
-    def convertToRev(self,inputData):
-
-        return int(round((inputData * 12.5),2))
-
-    def convertToTemp(self,inputData):
-
-        return inputData - 50
-
-    def convertToBattery(self,inputData):
-
-        return round(((inputData * 80) / 1000),1)
-
-    def convertToMAF(self,inputData):
-
-        return inputData * 5
-
-    def convertToAAC(self,inputData):
-
-        return inputData / 2
-
-    def convertToInjection(self,inputData):
-
-        return inputData / 100
-
-    def convertToTiming(self,inputData):
-
-        return 110 - inputData
-
-    def logToFile(self,data,fileName):
-
-        logFile = open(fileName + '.hex', 'a+')
-
-        logFile.write(data)
-
+    return 110 - inputData
 
 
 #########################################################################
