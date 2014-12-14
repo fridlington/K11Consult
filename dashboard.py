@@ -37,7 +37,7 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 
 pygame.init()
 
-PORT = serial.Serial('/dev/pts/24', 9600, timeout=None)
+PORT = serial.Serial('/dev/pts/12', 9600, timeout=None)
 
 ########################################################################
 class ReadStream(threading.Thread):
@@ -234,11 +234,11 @@ surface6.set_colorkey(0x0000FF)
 
 screen.fill(0x000000)
 
-fifeteen = pygame.font.SysFont("Dejavu Sans", 15)
+fifeteen = pygame.font.SysFont("Droid Sans", 15)
 
-twenty = pygame.font.SysFont("Dejavu Sans", 18)
+twenty = pygame.font.SysFont("Droid Sans", 18)
 
-sixty = pygame.font.SysFont("Dejavu Sans", 60)
+sixty = pygame.font.SysFont("Droid Sans", 60)
 
 BLACK = (0,0,0)
 RED = (30,0,0)
@@ -247,12 +247,12 @@ PURPLE = (128,0,128)
 WHITE = (255,255,255)
 BLUE = (136,196,255)
 
-degree = u'\N{DEGREE CELSIUS}'
+#degree = u'\N{DEGREE CELSIUS}'
 percent = u'\N{PERCENT SIGN}'
 millivolt = 'mV'
 volt = 'V'
 
-degreeSymbol2 = u"\u2103"
+degree = u"\u00B0"
 
 pygame.mouse.set_visible(False)
 
@@ -385,7 +385,7 @@ def indicatorNeedle(
 
 
     pygame.gfxdraw.arc(destination,position[0],position[1],
-                       (length - int(length / singleLine)),(180 + value),endPosition,  (255,0,0))
+                       (length - int(length / singleLine)),(180 + value),endPosition,  BLUE)
 
     pygame.draw.aaline(destination, BLUE, (x,y),(xa,ya), False)
 
@@ -486,8 +486,8 @@ while READ_THREAD == True:
     indicatorNeedle(surface2,RPM_Value,488,500,500,sixty,BLACK,0,0,500,10,5,100,False,False)
     indicatorNeedle(surface3,MAF_Value,168,170,170,twenty,BLACK,-45,-45,50,6,3,10,True,False,"MAF",millivolt)
     indicatorNeedle(surface4,AAC_Value,168,170,170,twenty,BLACK,45,45,10,6,3,1,True,False,"AAC",percent)
-    indicatorNeedle(surface5,TEMP_Value,148,150,150,twenty,RED,-45,45,16,6,3,1,True,True,"Temperature",degree)
-    indicatorNeedle(surface6,BATT_Value,148,150,150,twenty,RED,-45,45,2,6,3,1,True,True,"Battery",volt)
+    indicatorNeedle(surface5,TEMP_Value,148,150,150,twenty,BLACK,-45,45,16,6,3,1,True,False,"Temperature",degree)
+    indicatorNeedle(surface6,BATT_Value,148,150,150,twenty,BLACK,-45,45,2,6,3,1,True,False,"Battery",volt)
 
 
     screen.blit(surface1,(surface1X,surface1Y))
