@@ -37,7 +37,7 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 
 pygame.init()
 
-PORT = serial.Serial('/dev/pts/12', 9600, timeout=None)
+PORT = serial.Serial('/dev/pts/10', 9600, timeout=None)
 
 ########################################################################
 class ReadStream(threading.Thread):
@@ -59,9 +59,6 @@ class ReadStream(threading.Thread):
         global INJ_Value
         global TIM_Value
 
-        global ECU2_Value
-        global ECU5_Value
-
         MPH_Value = 0
         RPM_Value = 0
         TEMP_Value = 0
@@ -71,8 +68,6 @@ class ReadStream(threading.Thread):
         INJ_Value = 0
         TIM_Value = 0
 
-        ECU2_Value = 0
-        ECU5_Value = 0
 
         fileName = datetime.datetime.now().strftime("%d-%m-%y-%H-%M")
 
@@ -436,9 +431,13 @@ while READ_THREAD == True:
     for event in pygame.event.get():
 
         if event.type==pygame.QUIT:
+            PORT.flushInput()
+            PORT.close()
             sys.exit()
 
         if event.type is KEYDOWN and event.key == K_q:
+            PORT.flushInput()
+            PORT.close()
             sys.exit()
 
         if event.type is KEYDOWN and event.key == K_w:

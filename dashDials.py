@@ -16,7 +16,6 @@
 #You should have received a copy of the GNU General Public License
 #along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-import sys
 import pygame
 import math
 from pygame.locals import *
@@ -74,7 +73,6 @@ millivolt = 'mV'
 volt = 'V'
 degree = u"\u00B0"
 
-pygame.mouse.set_visible(False)
 
 def indicatorLegend(
                     legendValue,
@@ -89,7 +87,7 @@ def indicatorLegend(
                     doubleLine=6,
                     singleLine=3,
                     displayDivision=1,
-                    backgroundColour = RED,
+                    backgroundColour = WHITE,
                     dialType = False
 
     ):
@@ -180,7 +178,7 @@ def indicatorNeedle(
 
     if displayCircle:
         #pygame.gfxdraw.aacircle(destination,position[0],position[1], length, RED)
-        pygame.draw.circle(destination, RED, (position[0],position[1]), length , 0)
+        pygame.draw.circle(destination, backgroundColour, (position[0],position[1]), length , 0)
 
     if dialLabel:
         showLabel = fontSize.render(dialLabel, 1, BLUE, backgroundColour)

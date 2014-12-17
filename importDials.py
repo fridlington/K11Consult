@@ -20,7 +20,7 @@
 
 import os
 import time
-#import math
+import sys
 import dashDials as dd
 import pygame
 from pygame.locals import *
@@ -30,6 +30,8 @@ from pygame.locals import *
 os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 
 size = width, height = 1320, 740
+
+pygame.display.set_caption('K11Consult')
 
 monitorX = pygame.display.Info().current_w
 monitorY = pygame.display.Info().current_h
@@ -124,7 +126,7 @@ while True:
 
         if event.type is KEYDOWN and event.key == K_w:
             pygame.display.set_mode((width,height))
-            pygame.mouse.set_visible(False)
+            #pygame.mouse.set_visible(False)
             surface1X = surface1WindowedX
             surface1Y = surface1WindowedY
             surface2X = surface2WindowedX
@@ -154,7 +156,7 @@ while True:
             surface6X = surface6FullscreenX
             surface6Y = surface6FullscreenY
             screen.fill(0x000000)
-            pygame.mouse.set_visible(False)
+            #pygame.mouse.set_visible(False)
 
     surface1.fill(0x000000)
     surface2.fill(0x0000FF)
