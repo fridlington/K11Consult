@@ -37,7 +37,7 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 
 pygame.init()
 
-PORT = serial.Serial('/dev/pts/10', 9600, timeout=None)
+PORT = serial.Serial('/dev/pts/9', 9600, timeout=None)
 
 ########################################################################
 class ReadStream(threading.Thread):
@@ -95,7 +95,7 @@ class ReadStream(threading.Thread):
                             AAC_Value = self.convertToAAC(int(dataList[8]))
                             MAF_Value = self.convertToMAF(int(dataList[5]))
 
-                            time.sleep(0.004)
+                            time.sleep(0.002)
 
 
                         except (ValueError, IndexError):
@@ -428,6 +428,8 @@ while READ_THREAD == False:
 
 while READ_THREAD == True:
 
+    pygame.time.Clock().tick(60)
+
     for event in pygame.event.get():
 
         if event.type==pygame.QUIT:
@@ -496,6 +498,6 @@ while READ_THREAD == True:
     screen.blit(surface5,(surface5X,surface5Y))
     screen.blit(surface6,(surface6X,surface6Y))
 
-    time.sleep(0.02)
+    #time.sleep(0.02)
 
     pygame.display.update()

@@ -21,7 +21,7 @@
 import os
 import sys
 import time
-import dashDials as dd
+import dials as dd
 import pygame
 from pygame.locals import *
 
@@ -67,17 +67,19 @@ TEMP_Max_Value = 140
 
 
 while True:
-
+    pygame.time.Clock().tick(60)
     for event in pygame.event.get():
 
         if event.type==pygame.QUIT:
             sys.exit()
+            pygame.quit()
 
         if event.type is KEYDOWN and event.key == K_q:
             sys.exit()
+            pygame.quit()
 
         if event.type is KEYDOWN and event.key == K_w:
-            pygame.display.set_mode((width,height))
+            pygame.display.set_mode(size)
             #pygame.mouse.set_visible(False)
 
             surface1X = surface1WindowedX
@@ -93,18 +95,19 @@ while True:
 
             screen.fill(0x000000)
             #pygame.mouse.set_visible(False)
+            
 
 
     surface1.fill(0x000000)
 
 
 
-    dd.indicatorNeedle(surface1,TEMP_Value,148,150,150,dd.twenty,dd.BLACK,20,180,(TEMP_Max_Value / 10),6,3,1,True,False,"Temperature",dd.degree)
+    dd.Dials().indicatorNeedle(surface1,TEMP_Value,148,150,150,dd.Dials.twenty,dd.Dials.BLACK,20,180,(TEMP_Max_Value / 10),6,3,1,True,False,"Temperature",dd.Dials.degree)
 
     screen.blit(surface1,(surface1X,surface1Y))
 
 
-    time.sleep(0.08)
+    #time.sleep(0.08)
 
         
     if TEMP_Value < TEMP_Max_Value:
