@@ -27,11 +27,11 @@ class Dials():
     
     global BLUE
     
-    fifeteen = pygame.font.SysFont("Droid Sans", 15)
+    fifeteen = pygame.font.SysFont("Sans", 10)
 
-    twenty = pygame.font.SysFont("Droid Sans", 18)
+    twenty = pygame.font.SysFont("Free Sans", 18)
 
-    sixty = pygame.font.SysFont("Droid Sans", 60)
+    sixty = pygame.font.SysFont("Sans", 60)
 
     BLACK = (0,0,0)
     RED = (30,0,0)
