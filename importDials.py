@@ -115,6 +115,8 @@ AAC_Value = 1
 MAF_Value = 1
 
 while True:
+  
+    pygame.time.Clock().tick(30)
 
     for event in pygame.event.get():
 
@@ -170,7 +172,7 @@ while True:
     dd.indicatorNeedle(surface3,MAF_Value,168,170,170,dd.twenty,dd.BLACK,-45,-45,50,6,3,10,True,False,"MAF",dd.millivolt)
     dd.indicatorNeedle(surface4,AAC_Value,168,170,170,dd.twenty,dd.BLACK,45,45,10,6,3,1,True,False,"AAC",dd.percent)
     dd.indicatorNeedle(surface5,TEMP_Value,148,150,150,dd.twenty,dd.BLACK,-45,45,16,6,3,1,True,False,"Temperature",dd.degree)
-    dd.indicatorNeedle(surface6,BATT_Value,148,150,150,dd.twenty,dd.BLACK,-45,45,2,6,3,1,True,False,"Battery",dd.volt)
+    dd.indicatorNeedle(surface6,BATT_Value,80,150,150,dd.fifeteen,dd.BLACK,-45,45,2,6,3,1,True,False,"Battery",dd.volt)
 
 
     screen.blit(surface1,(surface1X,surface1Y))
@@ -180,10 +182,10 @@ while True:
     screen.blit(surface5,(surface5X,surface5Y))
     screen.blit(surface6,(surface6X,surface6Y))
 
-    time.sleep(0.02)
+    #time.sleep(0.02)
     
     if MPH_Value < 99:
-        MPH_Value = MPH_Value + 0.5
+        MPH_Value = MPH_Value + 1
     else:
         MPH_Value = 1
     

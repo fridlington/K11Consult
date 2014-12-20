@@ -56,14 +56,14 @@ def convertToTiming(self,inputData):
     return 110 - inputData
 
 
-fifeteen = pygame.font.SysFont("Droid Sans", 15)
+fifeteen = pygame.font.SysFont("Sans", 15)
 
-twenty = pygame.font.SysFont("Droid Sans", 18)
+twenty = pygame.font.SysFont("Sans", 18)
 
-sixty = pygame.font.SysFont("Droid Sans", 60)
+sixty = pygame.font.SysFont("Sans", 60)
 
 BLACK = (0,0,0)
-RED = (30,0,0)
+RED = (255,0,0)
 WHITE = (255,255,255)
 BLUE = (136,196,255)
 
@@ -129,7 +129,7 @@ def indicatorNeedle(
                     positionX = 600,
                     positionY = 360,
                     fontSize = sixty,
-                    backgroundColour = BLACK,
+                    backgroundColour = RED,
                     startPosition = 0,
                     endPosition = 0,
                     maximumValue = 10,
@@ -184,7 +184,7 @@ def indicatorNeedle(
         showLabel = fontSize.render(dialLabel, 1, BLUE, backgroundColour)
         labelRect = showLabel.get_rect()
         labelRect.centerx = position[0]
-        labelRect.centery = position[1] - 30
+        labelRect.centery = position[1] - (length / 5)
         destination.blit(showLabel, (labelRect))
 
     valueDivisions = degreesDifference / 10
@@ -222,3 +222,4 @@ def indicatorNeedle(
         indicatorLegend((180 + endPosition), needleValue , position[0], position[1],
                         length, destination, fontSize, False, False,
                         doubleLine,singleLine,1,backgroundColour)
+	
