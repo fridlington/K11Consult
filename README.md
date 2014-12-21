@@ -7,13 +7,11 @@ The protocol reads and writes hex via a serial connection, with dashboard.py sen
 
 Update
 
-The youtube video shows it running in Ubuntu -I've since switched to Debian as Ubuntu has a long-running bug that makes the keyboard unresponsive with applications that use fullscreen. So if you want to run this then don't use Ubuntu or Ubuntu-based distros.
+The youtube video shows it running in Ubuntu - I've since switched to Debian as Ubuntu has a long-running bug that makes the keyboard unresponsive with applications that use fullscreen. So if you want to run this then don't use Ubuntu or Ubuntu-based distros.
 
-dashboard2.py is a fully animated demonstration version that doesn't rely on any serial port interaction; all that's needed is pygame and pyserial ($ sudo apt-get install pygame python-serial).
+To make it work in realtime (Debian):
 
-To make it work in realtime (debian):
-
-$ sudo apt-get install cutecom socat
+$ sudo apt-get install cutecom socat pygame python-serial
 
 $ sudo gpasswd --add $USER dialout
 
