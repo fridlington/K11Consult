@@ -31,7 +31,7 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 
 size = width, height = 400, 400
 
-pygame.display.set_caption('K11Consult')
+pygame.display.set_caption('K11Consult: %s' % __file__)
 
 monitorX = pygame.display.Info().current_w
 monitorY = pygame.display.Info().current_h
@@ -80,11 +80,9 @@ while True:
 
         if event.type is KEYDOWN and event.key == K_w:
             pygame.display.set_mode(size)
-            #pygame.mouse.set_visible(False)
 
             surface1X = surface1WindowedX
             surface1Y = surface1WindowedY
-
             screen.fill(0x000000)
 
         if event.type is KEYDOWN and event.key == K_f:
@@ -92,11 +90,7 @@ while True:
 
             surface1X = surface1FullscreenX
             surface1Y = surface1FullscreenY
-
             screen.fill(0x000000)
-            #pygame.mouse.set_visible(False)
-            
-
 
     surface1.fill(0x000000)
 
@@ -109,7 +103,7 @@ while True:
 
     #time.sleep(0.08)
 
-        
+
     if TEMP_Value < TEMP_Max_Value:
         TEMP_Value = TEMP_Value + 1
     else:

@@ -31,7 +31,7 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 
 size = width, height = 1320, 740
 
-pygame.display.set_caption('K11Consult')
+pygame.display.set_caption('K11Consult: %s' % __file__)
 
 monitorX = pygame.display.Info().current_w
 monitorY = pygame.display.Info().current_h
@@ -115,8 +115,9 @@ AAC_Value = 1
 MAF_Value = 1
 
 while True:
-  
+
     pygame.time.Clock().tick(30)
+    pygame.mouse.set_visible(False)
 
     for event in pygame.event.get():
 
@@ -158,7 +159,7 @@ while True:
             surface6X = surface6FullscreenX
             surface6Y = surface6FullscreenY
             screen.fill(0x000000)
-            #pygame.mouse.set_visible(False)
+
 
     surface1.fill(0x000000)
     surface2.fill(0x0000FF)
@@ -183,32 +184,32 @@ while True:
     screen.blit(surface6,(surface6X,surface6Y))
 
     #time.sleep(0.02)
-    
+
     if MPH_Value < 99:
         MPH_Value = MPH_Value + 1
     else:
         MPH_Value = 1
-    
+
     if RPM_Value < 5000:
         RPM_Value = RPM_Value + 10
     else:
         RPM_Value = 10
-    
+
     if MAF_Value < 400:
         MAF_Value = MAF_Value + 1.5
     else:
         MAF_Value = 1
-        
+
     if AAC_Value < 100:
         AAC_Value = AAC_Value + 1
     else:
         AAC_Value = 1
-        
+
     if BATT_Value < 18:
         BATT_Value = BATT_Value + 0.2
     else:
         BATT_Value = 1
-        
+
     if TEMP_Value < 140:
         TEMP_Value = TEMP_Value + 1
     else:
