@@ -90,9 +90,9 @@ surface6WindowedY = (height / 2) + 60
 surface6X = surface6WindowedX
 surface6Y = surface6WindowedY
 
-screen = pygame.display.set_mode(size)
+screen = pygame.display.set_mode((size),pygame.HWSURFACE | pygame.DOUBLEBUF)
 
-surface1 = pygame.Surface((1300,720))
+surface1 = pygame.Surface((1300,680))
 surface2 = pygame.Surface((1000,600))
 surface3 = pygame.Surface((340,340))
 surface4 = pygame.Surface((340,340))
@@ -128,7 +128,7 @@ while True:
             sys.exit()
 
         if event.type is KEYDOWN and event.key == K_w:
-            pygame.display.set_mode((width,height))
+            pygame.display.set_mode((size),pygame.HWSURFACE | pygame.DOUBLEBUF)
             #pygame.mouse.set_visible(False)
             surface1X = surface1WindowedX
             surface1Y = surface1WindowedY
@@ -170,11 +170,11 @@ while True:
 
     dd.Dials(needleDestination=surface1,
             needleValue=MPH_Value,needleLength=648,positionX=650,positionY=650,
-            fontSize=dd.sixty,maximumValue=10,doubleLine=12,singleLine=6,displayNeedle=False)
+            fontSize=dd.sixty,maximumValue=10,doubleLine=16,singleLine=8,displayNeedle=False,backgroundColour=(81,0,0),displayCircle=True)
 
     dd.Dials(needleDestination=surface2,
             needleValue=RPM_Value,needleLength=488,positionX=500,positionY=500,
-            fontSize=dd.sixty,maximumValue=500,doubleLine=10,singleLine=5,displayNeedle=False,displayDivision=100)
+            fontSize=dd.sixty,maximumValue=500,doubleLine=12,singleLine=6,displayNeedle=False,displayDivision=100,displayCircle=True)
 
     dd.Dials(needleDestination=surface3,
             needleValue=MAF_Value,startPosition=-45,endPosition=-45,displayDivision=10,
@@ -186,11 +186,11 @@ while True:
 
     dd.Dials(needleDestination=surface5,
             needleValue=TEMP_Value,startPosition=-45,endPosition=45,
-            maximumValue=14,dialType=dd.degree,dialLabel="Temperature",backgroundColour=(0,0,31),displayCircle=True)
+            maximumValue=14,dialType=dd.degree,dialLabel="Temperature",backgroundColour=(0,0,81),displayCircle=True)
 
     dd.Dials(needleDestination=surface6,
             needleValue=BATT_Value,startPosition=-45,endPosition=45,maximumValue=2,
-            dialType=dd.volt,dialLabel="Battery",backgroundColour=(0,0,31),displayCircle=True)
+            dialType=dd.volt,dialLabel="Battery",backgroundColour=(0,0,81),displayCircle=True)
 
 
     screen.blit(surface1,(surface1X,surface1Y))
