@@ -25,7 +25,7 @@ import dials as dd
 import pygame
 from pygame.locals import *
 
-
+#dd.Dials(positionX=150)
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 
@@ -96,7 +96,7 @@ while True:
 
 
 
-    dd.Dials().indicatorNeedle(surface1,TEMP_Value,148,150,150,dd.Dials.twenty,dd.Dials.BLACK,20,180,(TEMP_Max_Value / 10),6,3,1,True,False,"Temperature",dd.Dials.degree)
+    dd.Dials(maximumValue=(TEMP_Max_Value/10),endPosition=45,startPosition=-45,dialLabel='Temperature',displayCircle=True,dialType=dd.degree,needleDestination=surface1,needleValue=TEMP_Value,foregroundColour=dd.BLUE,backgroundColour=(0,0,51))
 
     screen.blit(surface1,(surface1X,surface1Y))
 
