@@ -21,7 +21,7 @@
 import os
 import time
 import sys
-import dashDials as dd
+import dials as dd
 import pygame
 from pygame.locals import *
 
@@ -117,7 +117,7 @@ MAF_Value = 1
 while True:
 
     pygame.time.Clock().tick(30)
-    pygame.mouse.set_visible(False)
+    #pygame.mouse.set_visible(False)
 
     for event in pygame.event.get():
 
@@ -168,12 +168,29 @@ while True:
     surface5.fill(0x0000FF)
     surface6.fill(0x0000FF)
 
-    dd.indicatorNeedle(surface1,MPH_Value,648,650,650,dd.sixty,dd.BLACK,0,0,10,12,6,1,False,False)
-    dd.indicatorNeedle(surface2,RPM_Value,488,500,500,dd.sixty,dd.BLACK,0,0,500,10,5,100,False,False)
-    dd.indicatorNeedle(surface3,MAF_Value,168,170,170,dd.twenty,dd.BLACK,-45,-45,50,6,3,10,True,False,"MAF",dd.millivolt)
-    dd.indicatorNeedle(surface4,AAC_Value,168,170,170,dd.twenty,dd.BLACK,45,45,10,6,3,1,True,False,"AAC",dd.percent)
-    dd.indicatorNeedle(surface5,TEMP_Value,148,150,150,dd.twenty,dd.BLACK,-45,45,16,6,3,1,True,False,"Temperature",dd.degree)
-    dd.indicatorNeedle(surface6,BATT_Value,80,150,150,dd.fifeteen,dd.BLACK,-45,45,2,6,3,1,True,False,"Battery",dd.volt)
+    dd.Dials(needleDestination=surface1,
+            needleValue=MPH_Value,needleLength=648,positionX=650,positionY=650,
+            fontSize=dd.sixty,maximumValue=10,doubleLine=12,singleLine=6,displayNeedle=False)
+
+    dd.Dials(needleDestination=surface2,
+            needleValue=RPM_Value,needleLength=488,positionX=500,positionY=500,
+            fontSize=dd.sixty,maximumValue=500,doubleLine=10,singleLine=5,displayNeedle=False,displayDivision=100)
+
+    dd.Dials(needleDestination=surface3,
+            needleValue=MAF_Value,startPosition=-45,endPosition=-45,displayDivision=10,
+            needleLength=168,positionX=170,positionY=170,maximumValue=50,dialType=dd.millivolt,dialLabel="MAF")
+
+    dd.Dials(needleDestination=surface4,
+            needleValue=AAC_Value,startPosition=45,endPosition=45,
+            needleLength=168,positionX=170,positionY=170,maximumValue=10,dialType=dd.percent,dialLabel="AAC")
+
+    dd.Dials(needleDestination=surface5,
+            needleValue=TEMP_Value,startPosition=-45,endPosition=45,
+            maximumValue=14,dialType=dd.degree,dialLabel="Temperature",backgroundColour=(0,0,31),displayCircle=True)
+
+    dd.Dials(needleDestination=surface6,
+            needleValue=BATT_Value,startPosition=-45,endPosition=45,maximumValue=2,
+            dialType=dd.volt,dialLabel="Battery",backgroundColour=(0,0,31),displayCircle=True)
 
 
     screen.blit(surface1,(surface1X,surface1Y))
