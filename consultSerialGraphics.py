@@ -27,7 +27,7 @@ from pygame.locals import *
 import pygame.gfxdraw
 pygame.init()
 
-PORT = serial.Serial('/dev/pts/3', 9600, timeout=None)
+PORT = serial.Serial('/dev/pts/1', 9600, timeout=None)
 
 class ReadStream(threading.Thread):
 
@@ -152,11 +152,11 @@ BATT_Value = 0
 AAC_Value = 0
 MAF_Value = 0
 
-SIZE = 600,600
+SIZE = 800,700
 screen = pygame.display.set_mode(SIZE)
-fontFifty = pygame.font.SysFont("Digital-7 Mono", 60)
+fontFifty = pygame.font.SysFont("Digital-7 Mono", 86)
 needle = pygame.image.load("needle.png").convert_alpha()
-background = pygame.image.load("dial.png").convert_alpha()
+background = pygame.image.load("dial2.png").convert_alpha()
 
 while READ_THREAD == False:
 
@@ -198,20 +198,20 @@ while READ_THREAD == True:
     #needleNew2 = pygame.transform.rotozoom(needle, (120 - (RPM_Value  / 66.66)),1)
 
     needle_rect = needleNew.get_rect()
-    needle_rect.center = (300,300)
+    needle_rect.center = (400,380)
     #needle2_rect = needleNew2.get_rect()
     #needle2_rect.center = (895,360)
 
     displayValue = fontFifty.render(("%s" % RPM_Value), 1, (255,0,255))
     labelRect = displayValue.get_rect()
-    labelRect.centerx = 300
-    labelRect.centery = 439
+    labelRect.centerx = 400
+    labelRect.centery = 575
 
 
-    screen.blit(background, (55,55))
+    screen.blit(background, (60,40))
     screen.blit(needleNew, needle_rect)
     screen.blit(displayValue, (labelRect))
 
     time.sleep(0.02)
     pygame.display.update()
-    print RPM_Value
+    #print RPM_Value
