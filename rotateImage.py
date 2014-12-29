@@ -17,7 +17,7 @@ pygame.display.set_caption('K11Consult / RPM')
 done = False
 screen.fill((0, 0, 255))
 needle = pygame.image.load("needle.png").convert_alpha()
-background = pygame.image.load("dial2.png").convert_alpha()
+background = pygame.image.load("dial.png").convert_alpha()
 backgroundRect = background.get_rect()
 #needle2 = needle
 counter = 120

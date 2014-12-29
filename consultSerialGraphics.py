@@ -27,7 +27,18 @@ from pygame.locals import *
 import pygame.gfxdraw
 pygame.init()
 
-PORT = serial.Serial('/dev/pts/1', 9600, timeout=None)
+
+# Uncomment for live:
+#PORT = serial.Serial('/dev/ttyUSB0', 9600, timeout=None)
+# Below is for local testing with a pair of virtual serial
+# ports.
+#
+# This is initialised by:
+# $ socat PTY,link=CUTECOM PTY,link=SCRIPT
+#
+# The address for cutecom is:
+# /home/$USER/K11Consult/CUTECOM
+PORT = serial.Serial('SCRIPT', 9600, timeout=None)
 
 class ReadStream(threading.Thread):
 
@@ -156,7 +167,7 @@ SIZE = 800,700
 screen = pygame.display.set_mode(SIZE)
 fontFifty = pygame.font.SysFont("Digital-7 Mono", 86)
 needle = pygame.image.load("needle.png").convert_alpha()
-background = pygame.image.load("dial2.png").convert_alpha()
+background = pygame.image.load("dial.png").convert_alpha()
 
 while READ_THREAD == False:
 
