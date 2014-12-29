@@ -85,18 +85,18 @@ class Dials():
         self.endPosition = endPosition
 
 
-        length = self.needleLength
+        #length = self.needleLength
         length2 = int(self.needleLength / 20)
         length3 = length2 + 5
 
         degreesDifference = 360 - (self.startPosition +
                         (180 - self.endPosition))
 
-        value = int((needleValue * (degreesDifference /
-                        (self.maximumValue * 10.0))) + startPosition)
+        value = int((self.needleValue * (degreesDifference /
+                        (self.maximumValue * 10.0))) + self.startPosition)
 
-        self.displayValue = (needleValue * (degreesDifference /
-                        (self.maximumValue * 10.0))) + startPosition
+        #self.displayValue = (needleValue * (degreesDifference /
+                        #(self.maximumValue * 10.0))) + self.startPosition
 
         x = self.positionX - math.cos(math.radians(value)) * (self.needleLength - int(self.needleLength / singleLine))
         y = self.positionY - math.sin(math.radians(value)) * (self.needleLength - int(self.needleLength / singleLine))
@@ -109,19 +109,19 @@ class Dials():
 
         xa = self.positionX - math.cos(math.radians(value)) * self.needleLength
         ya = self.positionY - math.sin(math.radians(value)) * self.needleLength
-        xa2 = x - math.cos(math.radians(value))
-        ya2 = y - math.sin(math.radians(value))
-        xa3 = x - math.cos(math.radians(value + 180))
-        ya3 = y - math.sin(math.radians(value + 180))
-        xa4 = x - math.cos(math.radians(value + 90)) * (length2 + 4)
-        ya4 = y - math.sin(math.radians(value + 90)) * (length2 + 4)
+        #xa2 = x - math.cos(math.radians(value))
+        #ya2 = y - math.sin(math.radians(value))
+        #xa3 = x - math.cos(math.radians(value + 180))
+        #ya3 = y - math.sin(math.radians(value + 180))
+        #xa4 = x - math.cos(math.radians(value + 90)) * (length2 + 4)
+        #ya4 = y - math.sin(math.radians(value + 90)) * (length2 + 4)
 
         if self.displayCircle:
             #pygame.gfxdraw.aacircle(destination,position[0],position[1], length, RED)
             pygame.draw.circle(self.needleDestination, self.backgroundColour, (self.positionX,self.positionY), self.needleLength , 0)
 
-        if dialLabel:
-            self.showLabel = fontSize.render(dialLabel, 1, self.foregroundColour, self.backgroundColour)
+        if self.dialLabel:
+            self.showLabel = self.fontSize.render(self.dialLabel, 1, self.foregroundColour, self.backgroundColour)
             labelRect = self.showLabel.get_rect()
             labelRect.centerx = self.positionX
             labelRect.centery = self.positionY - 30
@@ -129,8 +129,8 @@ class Dials():
 
         valueDivisions = degreesDifference / 10
 
-        self.indicatorLegend(startPosition, 0, self.positionX, self.positionY, self.needleLength,
-                        self.needleDestination, fontSize,False,True,doubleLine,singleLine,1,self.backgroundColour)
+        self.indicatorLegend(self.startPosition, 0, self.positionX, self.positionY, self.needleLength,
+                        self.needleDestination, self.fontSize,False,True,doubleLine,singleLine,1,self.backgroundColour)
 
         for divisions in range(1,10):
 
@@ -238,19 +238,19 @@ class Dials():
         ylabel = position[1] - math.sin(math.radians(legendValue)) * (length - int(length / singleLine))
 
         if drawLine:
-            pygame.draw.aaline(destination, BLUE, (x,y),(xa,ya), False)
+            pygame.draw.aaline(destination, self.foregroundColour, (x,y),(xa,ya), False)
 
         if dialType:
-            label = fontSize.render(("%s%s" % ((displayValue / displayDivision),dialType)),
-                                    1, BLUE, backgroundColour)
+            label = fontSize.render(("%s%s" % ((displayValue / displayDivision),self.dialType)),
+                                    1, self.foregroundColour, self.backgroundColour)
         else:
             label = fontSize.render((str(displayValue / displayDivision)),
-                                    1, BLUE, backgroundColour)
+                                    1, self.foregroundColour, self.backgroundColour)
 
         labelRect = label.get_rect()
         labelRect.centerx = int(xlabel)
         labelRect.centery = int(ylabel)# + 5
-        destination.blit(label, (labelRect))
+        self.needleDestination.blit(label, (labelRect))
 
 
 
