@@ -23,27 +23,23 @@ import pygame.gfxdraw
 pygame.init()
 
 
+fifeteen = pygame.font.SysFont("Free Sans", 15)
+twenty = pygame.font.SysFont("Free Sans", 20)
+sixty = pygame.font.SysFont("Free Sans", 60)
+
+percent = u'\N{PERCENT SIGN}'
+millivolt = 'mV'
+volt = 'V'
+degree = u"\u00B0"
+
+surface1 = pygame.Surface((300,300))
+
+BLACK = (0,0,0)
+RED = (90,0,0)
+WHITE = (255,255,255)
+BLUE = (136,196,255)
+
 class Dials():
-
-    global BLUE,RED,BLACK,WHITE,fifeteen,surface1, \
-            twenty,sixty,percent,millivolt,volt,degree
-
-    fifeteen = pygame.font.SysFont("Free Sans", 15)
-    twenty = pygame.font.SysFont("Free Sans", 20)
-    sixty = pygame.font.SysFont("Free Sans", 60)
-
-    surface1 = pygame.Surface((300,300))
-
-    BLACK = (0,0,0)
-    RED = (90,0,0)
-    WHITE = (255,255,255)
-    BLUE = (136,196,255)
-
-    percent = u'\N{PERCENT SIGN}'
-    millivolt = 'mV'
-    volt = 'V'
-    degree = u"\u00B0"
-
 
     def __init__(self,
         needleDestination = surface1,
