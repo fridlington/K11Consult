@@ -99,6 +99,7 @@ surface4 = pygame.Surface((340,340))
 surface5 = pygame.Surface((300,300))
 surface6 = pygame.Surface((300,300))
 
+#surface1.set_colorkey(0x0000FF)
 surface2.set_colorkey(0x0000FF)
 surface3.set_colorkey(0x0000FF)
 surface4.set_colorkey(0x0000FF)
@@ -107,12 +108,12 @@ surface6.set_colorkey(0x0000FF)
 
 screen.fill(0x000000)
 
-MPH_Value = 1
-RPM_Value = 10
-TEMP_Value = 100
-BATT_Value = 1
-AAC_Value = 1
-MAF_Value = 1
+MPH_Value = 0
+RPM_Value = 0
+TEMP_Value = 0
+BATT_Value = 0
+AAC_Value = 0
+MAF_Value = 0
 
 while True:
 
@@ -129,7 +130,7 @@ while True:
 
         if event.type is KEYDOWN and event.key == K_w:
             pygame.display.set_mode((size),pygame.HWSURFACE | pygame.DOUBLEBUF)
-            #pygame.mouse.set_visible(False)
+            pygame.mouse.set_visible(True)
             surface1X = surface1WindowedX
             surface1Y = surface1WindowedY
             surface2X = surface2WindowedX
@@ -158,6 +159,7 @@ while True:
             surface5Y = surface5FullscreenY
             surface6X = surface6FullscreenX
             surface6Y = surface6FullscreenY
+            pygame.mouse.set_visible(False)
             screen.fill(0x000000)
 
 
@@ -170,27 +172,27 @@ while True:
 
     dd.Dials(needleDestination=surface1,
             needleValue=MPH_Value,needleLength=648,positionX=650,positionY=650,
-            fontSize=dd.sixty,maximumValue=10,doubleLine=16,singleLine=8,displayNeedle=False,backgroundColour=(81,0,0),displayCircle=True)
+            fontSize=dd.sixty,maximumValue=10,doubleLine=16,singleLine=8,displayNeedle=False,backgroundColour=(81,0,0),foregroundColour=(255,255,255),displayCircle=True)
 
     dd.Dials(needleDestination=surface2,
             needleValue=RPM_Value,needleLength=488,positionX=500,positionY=500,
-            fontSize=dd.sixty,maximumValue=500,doubleLine=12,singleLine=6,displayNeedle=False,displayDivision=100,displayCircle=True)
+            fontSize=dd.sixty,maximumValue=500,doubleLine=12,singleLine=6,displayNeedle=False,displayDivision=100,displayCircle=True,foregroundColour=(255,255,255))
 
     dd.Dials(needleDestination=surface3,
             needleValue=MAF_Value,startPosition=-45,endPosition=-45,displayDivision=10,
-            needleLength=168,positionX=170,positionY=170,maximumValue=50,dialType=dd.millivolt,dialLabel="MAF")
+            needleLength=168,positionX=170,positionY=170,maximumValue=50,dialType=dd.millivolt,dialLabel="MAF",foregroundColour=(255,255,255))
 
     dd.Dials(needleDestination=surface4,
             needleValue=AAC_Value,startPosition=45,endPosition=45,
-            needleLength=168,positionX=170,positionY=170,maximumValue=10,dialType=dd.percent,dialLabel="AAC")
+            needleLength=168,positionX=170,positionY=170,maximumValue=10,dialType=dd.percent,dialLabel="AAC",foregroundColour=(255,255,255))
 
     dd.Dials(needleDestination=surface5,
             needleValue=TEMP_Value,startPosition=-45,endPosition=45,
-            maximumValue=14,dialType=dd.degree,dialLabel="Temperature",backgroundColour=(0,0,81),displayCircle=True)
+            maximumValue=14,dialType=dd.degree,dialLabel="Temperature",backgroundColour=(0,0,81),displayCircle=True,foregroundColour=(255,255,255))
 
     dd.Dials(needleDestination=surface6,
             needleValue=BATT_Value,startPosition=-45,endPosition=45,maximumValue=2,
-            dialType=dd.volt,dialLabel="Battery",backgroundColour=(0,0,81),displayCircle=True)
+            dialType=dd.volt,dialLabel="Battery",backgroundColour=(0,0,81),displayCircle=True,foregroundColour=(255,255,255))
 
 
     screen.blit(surface1,(surface1X,surface1Y))
@@ -208,7 +210,7 @@ while True:
         MPH_Value = 1
 
     if RPM_Value < 5000:
-        RPM_Value = RPM_Value + 10
+        RPM_Value = RPM_Value + 30
     else:
         RPM_Value = 10
 
