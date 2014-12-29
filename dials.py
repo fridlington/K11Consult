@@ -124,7 +124,7 @@ class Dials():
             self.showLabel = self.fontSize.render(self.dialLabel, 1, self.foregroundColour, self.backgroundColour)
             labelRect = self.showLabel.get_rect()
             labelRect.centerx = self.positionX
-            labelRect.centery = self.positionY - 30
+            labelRect.centery = self.positionY - (self.needleLength / 5)
             self.needleDestination.blit(self.showLabel, (labelRect))
 
         valueDivisions = degreesDifference / 10
