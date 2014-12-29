@@ -96,7 +96,7 @@ while True:
 
 
 
-    dd.Dials(maximumValue=(TEMP_Max_Value/10),endPosition=45,startPosition=-45,dialLabel='Temperature',displayCircle=True,dialType=dd.degree,needleDestination=surface1,needleValue=TEMP_Value,foregroundColour=dd.BLUE,backgroundColour=(0,0,51))
+    dd.Dials(maximumValue=(TEMP_Max_Value/10),endPosition=45,startPosition=-45,dialLabel='Temperature',displayCircle=True,dialType=dd.degree,needleDestination=surface1,needleValue=TEMP_Value,foregroundColour=(255,255,255),backgroundColour=(0,0,81))
 
     screen.blit(surface1,(surface1X,surface1Y))
 
