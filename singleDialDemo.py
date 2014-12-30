@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# importSingleDial.py
+# singleDialDemo.py
 
 #Copyright (C) 2014 Eilidh Fridlington http://eilidh.fridlington.com
 
@@ -16,16 +16,18 @@
 #You should have received a copy of the GNU General Public License
 #along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+"""
+A demonstration of a single graphical dial with numerical display.
 
+Fullscreen is 'f' windowed is 'w', 'q' to quit.
 
+"""
 import os
 import sys
 import time
-#import dials as dd
 import pygame
 from pygame.locals import *
 pygame.init()
-#dd.Dials(positionX=150)
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 
@@ -72,18 +74,7 @@ background = pygame.image.load("dial.png").convert_alpha()
 
 fontFifty = pygame.font.SysFont("Digital-7 Mono", 87)
 
-#surface1 = pygame.Surface((300,300))
-
-
-
-#surface1.set_colorkey(0x0000FF)
-
-
-#screen.fill(0x000000)
-
-
 RPM_Value = 0
-
 
 while True:
     pygame.time.Clock().tick(60)
@@ -119,39 +110,27 @@ while True:
             dial1Y = dial1FullscreenY
             screen.fill(0x000000)
 
-    #surface1.fill(0x000000)
     screen.fill(0x000000)
 
-
-    #dd.Dials(maximumValue=(TEMP_Max_Value/10),endPosition=45,startPosition=-45,dialLabel='Temperature',displayCircle=True,dialType=dd.degree,needleDestination=surface1,needleValue=TEMP_Value,foregroundColour=(255,255,255),backgroundColour=(0,0,81))
-
     needleNew = pygame.transform.rotozoom(needle, (120 - (RPM_Value  / 33.33)),1)
-    #needleNew2 = pygame.transform.rotozoom(needle, (120 - (RPM_Value  / 66.66)),1)
     displayValue = fontFifty.render(("%s" % RPM_Value), 1, (255,0,255))
     labelRect = displayValue.get_rect()
     labelRect.centerx = dial1X
     labelRect.centery = dial1Y
 
     needle_rect = needleNew.get_rect()
-    #screen.blit(background, (surface1X,surface1Y))
-    #screen.blit(needleNew, needle_rect)
-    #surface1.blit(displayValue, (labelRect))
+    needle_rect.center = (needleX,needleY)
 
     screen.blit(background, (backgroundX,backgroundY))
-    needle_rect.center = (needleX,needleY)
-    #screen.blit(surface1,(surface1X,surface1Y))
     screen.blit(needleNew, needle_rect)
     screen.blit(displayValue, (labelRect))
-    #screen.blit(background, (surface1X,surface1Y))
-
-    #time.sleep(0.08)
 
 
     if RPM_Value >= 8000:
         counter = 120
         RPM_Value = 0
     else:
-        #counter -=3
+
         RPM_Value += 50
 
     pygame.display.update()
