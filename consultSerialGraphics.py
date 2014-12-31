@@ -15,6 +15,7 @@
 
 #You should have received a copy of the GNU General Public License
 #along with this program.  If not, see <http://www.gnu.org/licenses/
+import os
 import sys
 import time
 import math
@@ -163,11 +164,50 @@ BATT_Value = 0
 AAC_Value = 0
 MAF_Value = 0
 
-SIZE = 800,700
-screen = pygame.display.set_mode(SIZE)
-fontFifty = pygame.font.SysFont("Digital-7 Mono", 86)
+os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
+
+size = width, height = 1320, 740
+
+pygame.display.set_caption('K11Consult: %s' % __file__)
+
+monitorX = pygame.display.Info().current_w
+monitorY = pygame.display.Info().current_h
+
+backgroundFullscreenX = (monitorX / 2) - 340
+backgroundFullscreenY = (monitorY / 2) - 340
+
+backgroundWindowedX = (width / 2) - 340
+backgroundWindowedY = (height / 2) -340
+
+needleFullscreenX = monitorX / 2
+needleFullscreenY = monitorY / 2
+
+needleWindowedX = width / 2
+needleWindowedY = height / 2
+
+dial1FullscreenX = monitorX / 2
+dial1FullscreenY = backgroundFullscreenY + 535
+
+dial1WindowedX = width / 2
+dial1WindowedY = backgroundWindowedY + 535
+
+backgroundX = backgroundWindowedX
+backgroundY = backgroundWindowedY
+
+needleX = needleWindowedX
+needleY = needleWindowedY
+
+dial1X = dial1WindowedX
+dial1Y = dial1WindowedY
+
+
+
+screen = pygame.display.set_mode(size)
+
 needle = pygame.image.load("needle.png").convert_alpha()
 background = pygame.image.load("dial.png").convert_alpha()
+
+fontFifty = pygame.font.SysFont("Digital-7 Mono", 87)
 
 while READ_THREAD == False:
 
@@ -189,8 +229,6 @@ while READ_THREAD == False:
 
 while READ_THREAD == True:
 
-    #pygame.time.Clock().tick(60)
-
     for event in pygame.event.get():
 
         if event.type==pygame.QUIT:
@@ -198,31 +236,49 @@ while READ_THREAD == True:
             PORT.flushInput()
             PORT.close()
             sys.exit()
+            pygame.quit()
 
         if event.type is KEYDOWN and event.key == K_q:
             PORT.write('\x30')
             PORT.flushInput()
             PORT.close()
             sys.exit()
-    screen.fill((0,0,0))
+            pygame.quit()
+
+        if event.type is KEYDOWN and event.key == K_w:
+            pygame.display.set_mode(size)
+            pygame.mouse.set_visible(True)
+            backgroundX = backgroundWindowedX
+            backgroundY = backgroundWindowedY
+            needleX = needleWindowedX
+            needleY = needleWindowedY
+            dial1X = dial1WindowedX
+            dial1Y = dial1WindowedY
+
+
+        if event.type is KEYDOWN and event.key == K_f:
+            pygame.display.set_mode((monitorX,monitorY), FULLSCREEN)
+            pygame.mouse.set_visible(False)
+            backgroundX = backgroundFullscreenX
+            backgroundY = backgroundFullscreenY
+            needleX = needleFullscreenX
+            needleY = needleFullscreenY
+            dial1X = dial1FullscreenX
+            dial1Y = dial1FullscreenY
+
+
     needleNew = pygame.transform.rotozoom(needle, (120 - (RPM_Value  / 33.33)),1)
-    #needleNew2 = pygame.transform.rotozoom(needle, (120 - (RPM_Value  / 66.66)),1)
-
-    needle_rect = needleNew.get_rect()
-    needle_rect.center = (400,380)
-    #needle2_rect = needleNew2.get_rect()
-    #needle2_rect.center = (895,360)
-
     displayValue = fontFifty.render(("%s" % RPM_Value), 1, (255,0,255))
     labelRect = displayValue.get_rect()
-    labelRect.centerx = 400
-    labelRect.centery = 575
+    labelRect.centerx = dial1X
+    labelRect.centery = dial1Y
 
+    needle_rect = needleNew.get_rect()
+    needle_rect.center = (needleX,needleY)
 
-    screen.blit(background, (60,40))
+    screen.blit(background, (backgroundX,backgroundY))
     screen.blit(needleNew, needle_rect)
     screen.blit(displayValue, (labelRect))
 
     time.sleep(0.02)
     pygame.display.update()
-    #print RPM_Value
