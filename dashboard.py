@@ -37,7 +37,7 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 
 pygame.init()
 
-PORT = serial.Serial('/dev/pts/9', 9600, timeout=None)
+PORT = serial.Serial('/dev/pts/2', 9600, timeout=None)
 
 ########################################################################
 class ReadStream(threading.Thread):

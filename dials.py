@@ -81,7 +81,6 @@ class Dials():
         self.endPosition = endPosition
 
 
-        #length = self.needleLength
         length2 = int(self.needleLength / 20)
         length3 = length2 + 5
 
@@ -91,8 +90,6 @@ class Dials():
         value = int((self.needleValue * (degreesDifference /
                         (self.maximumValue * 10.0))) + self.startPosition)
 
-        #self.displayValue = (needleValue * (degreesDifference /
-                        #(self.maximumValue * 10.0))) + self.startPosition
 
         x = self.positionX - math.cos(math.radians(value)) * (self.needleLength - int(self.needleLength / singleLine))
         y = self.positionY - math.sin(math.radians(value)) * (self.needleLength - int(self.needleLength / singleLine))
@@ -105,15 +102,8 @@ class Dials():
 
         xa = self.positionX - math.cos(math.radians(value)) * self.needleLength
         ya = self.positionY - math.sin(math.radians(value)) * self.needleLength
-        #xa2 = x - math.cos(math.radians(value))
-        #ya2 = y - math.sin(math.radians(value))
-        #xa3 = x - math.cos(math.radians(value + 180))
-        #ya3 = y - math.sin(math.radians(value + 180))
-        #xa4 = x - math.cos(math.radians(value + 90)) * (length2 + 4)
-        #ya4 = y - math.sin(math.radians(value + 90)) * (length2 + 4)
 
         if self.displayCircle:
-            #pygame.gfxdraw.aacircle(destination,position[0],position[1], length, RED)
             pygame.draw.circle(self.needleDestination, self.backgroundColour, (self.positionX,self.positionY), self.needleLength , 0)
 
         if self.dialLabel:
@@ -158,44 +148,6 @@ class Dials():
             self.indicatorLegend((180 + self.endPosition), self.needleValue , self.positionX, self.positionY,
                             self.needleLength, self.needleDestination, self.fontSize, False, False,
                             self.doubleLine,self.singleLine,1,self.backgroundColour)
-
-
-
-
-
-
-
-    def convertToMPH(self,inputData):
-
-        return int(round ((inputData * 2.11) * 0.621371192237334))
-
-    def convertToRev(self,inputData):
-
-        return int(round((inputData * 12.5),2))
-
-    def convertToTemp(self,inputData):
-
-        return inputData - 50
-
-    def convertToBattery(self,inputData):
-
-        return round(((inputData * 80) / 1000),1)
-
-    def convertToMAF(self,inputData):
-
-        return inputData * 5
-
-    def convertToAAC(self,inputData):
-
-        return inputData / 2
-
-    def convertToInjection(self,inputData):
-
-        return inputData / 100
-
-    def convertToTiming(self,inputData):
-
-        return 110 - inputData
 
 
 

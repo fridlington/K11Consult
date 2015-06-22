@@ -22,7 +22,7 @@ import serial
 import threading
 import datetime
 
-PORT = serial.Serial('/dev/pts/9', 9600, timeout=None)
+PORT = serial.Serial('/home/eilidh/K11Consult/SCRIPT', 9600, timeout=None)
 
 class ReadStream(threading.Thread):
 

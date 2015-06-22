@@ -25,9 +25,18 @@ Fullscreen is 'f' windowed is 'w', 'q' to quit.
 import os
 import sys
 import time
+import serial
+import serialThread
+
 import pygame
 from pygame.locals import *
 pygame.init()
+
+PORT = serial.Serial('/home/eilidh/K11Consult/SCRIPT', 9600, timeout=None)
+
+
+
+incomingData = serialThread.ReadStream(PORT,True)
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 
@@ -74,22 +83,30 @@ background = pygame.image.load("dial.png").convert_alpha()
 
 fontFifty = pygame.font.SysFont("Digital-7 Mono", 87)
 
+MPH_Value = 0
 RPM_Value = 0
 
 while True:
     pygame.time.Clock().tick(60)
+    MPH_Value = incomingData.returnMPH()
+    RPM_Value = incomingData.returnRPM()
+
     for event in pygame.event.get():
 
         if event.type==pygame.QUIT:
+            PORT.write('\x30')
+            PORT.flushInput()
             sys.exit()
             pygame.quit()
 
         if event.type is KEYDOWN and event.key == K_q:
+            PORT.write('\x30')
+            PORT.flushInput()
             sys.exit()
             pygame.quit()
 
         if event.type is KEYDOWN and event.key == K_w:
-            pygame.display.set_mode(size)
+            pygame.display.set_mode((size),pygame.HWSURFACE | pygame.DOUBLEBUF)
 
             backgroundX = backgroundWindowedX
             backgroundY = backgroundWindowedY
@@ -113,7 +130,7 @@ while True:
     screen.fill(0x000000)
 
     needleNew = pygame.transform.rotozoom(needle, (120 - (RPM_Value  / 33.33)),1)
-    displayValue = fontFifty.render(("%s" % RPM_Value), 1, (255,0,255))
+    displayValue = fontFifty.render(("%s" % MPH_Value), 1, (255,0,255))
     labelRect = displayValue.get_rect()
     labelRect.centerx = dial1X
     labelRect.centery = dial1Y
@@ -125,12 +142,6 @@ while True:
     screen.blit(needleNew, needle_rect)
     screen.blit(displayValue, (labelRect))
 
-
-    if RPM_Value >= 8000:
-        counter = 120
-        RPM_Value = 0
-    else:
-
-        RPM_Value += 50
-
+    #time.sleep(0.02)
     pygame.display.update()
+
