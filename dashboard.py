@@ -45,109 +45,88 @@ class ReadStream(threading.Thread):
     def __init__(self, daemon):
         threading.Thread.__init__(self)
         self.daemon = daemon
+        self.MPH_Value = 0
+        self. RPM_Value = 0
+        self. TEMP_Value = 0
+        self. BATT_Value = 0
+        self. MAF_Value = 0
+        self. AAC_Value = 0
+        self. INJ_Value = 0
+        self. TIM_Value = 0
+        
+        read_Thread = True;
+        self.Header = 255
+        self.returnBytes = 14
+        fileName = datetime.datetime.now().strftime("%d-%m-%y-%H-%M"
+        
         self.start()
+        
+        
+        def check_data_size(data_list):
+               try:
+                    if dataList[-4] != self.Header:
+                        return False
+                    if   dataList[-3] != self.returnBytes:
+                         return False   
+                         
+                except (ValueError, IndexError):
+                    return False
+                return True
+                
+    def consume_data(self):
+        read_thread = True
+        while read_thread:
+            incomingData = PORT.read(16)
+            
+            if incomingData:
+                dataList = map(ord,incomingData)
+            if not self.check_data_size(dataList):
+                continue
+                
+             try:
+                 MPH_Value = self.convertToMPH(int(dataList[-2]))
+                 RPM_Value = self.convertToRev(int(dataList[-1]))
+                 TEMP_Value = self.convertToTemp(int(dataList[0]))
+                  BATT_Value = self.convertToBattery(float(dataList[1]))
+                  AAC_Value = self.convertToAAC(int(dataList[8])
+                  MAF_Value = self.convertToMAF(int(dataList[5]))
+                  
+             except (ValueError, IndexError):
+                   pass         
+             time.sleep(0.002)
 
     def run(self):
         PORT.write('\x5A\x0B\x5A\x01\x5A\x08\x5A\x0C\x5A\x0D\x5A\x03\x5A\x05\x5A\x09\x5A\x13\x5A\x16\x5A\x17\x5A\x1A\x5A\x1C\x5A\x21\xF0')
-
-        global MPH_Value
-        global RPM_Value
-        global TEMP_Value
-        global BATT_Value
-        global MAF_Value
-        global AAC_Value
-        global INJ_Value
-        global TIM_Value
-
-        MPH_Value = 0
-        RPM_Value = 0
-        TEMP_Value = 0
-        BATT_Value = 0
-        MAF_Value = 0
-        AAC_Value = 0
-        INJ_Value = 0
-        TIM_Value = 0
-
-
-        fileName = datetime.datetime.now().strftime("%d-%m-%y-%H-%M")
-
-        while READ_THREAD == True:
-
-            incomingData = PORT.read(16)
-
-            #self.logToFile(incomingData,fileName)
-
-            if incomingData:
-
-                dataList = map(ord,incomingData)
-                Header = 255
-                returnBytes = 14
-
-                try:
-                    if dataList[-4] == Header and dataList[-3] == returnBytes:
-
-
-                        try:
-                            MPH_Value = self.convertToMPH(int(dataList[-2]))
-                            RPM_Value = self.convertToRev(int(dataList[-1]))
-                            TEMP_Value = self.convertToTemp(int(dataList[0]))
-                            BATT_Value = self.convertToBattery(float(dataList[1]))
-                            AAC_Value = self.convertToAAC(int(dataList[8]))
-                            MAF_Value = self.convertToMAF(int(dataList[5]))
-
-                            time.sleep(0.002)
-
-
-                        except (ValueError, IndexError):
-                            pass
-
-                    else:
-                        pass
-
-                except (ValueError, IndexError):
-                    pass
-
-            else:
-                pass
-
-
+        #cant think of  a reason for declerations and initialisations to be seperate
+        self.consume_data() 
+    
     def convertToMPH(self,inputData):
-
         return int(round ((inputData * 2.11) * 0.621371192237334))
 
     def convertToRev(self,inputData):
-
         return int(round((inputData * 12.5),2))
 
     def convertToTemp(self,inputData):
-
         return inputData - 50
 
     def convertToBattery(self,inputData):
-
         return round(((inputData * 80) / 1000),1)
 
     def convertToMAF(self,inputData):
-
         return inputData * 5
 
     def convertToAAC(self,inputData):
-
         return inputData / 2
 
     def convertToInjection(self,inputData):
-
         return inputData / 100
 
     def convertToTiming(self,inputData):
-
         return 110 - inputData
 
     def logToFile(self,data,fileName):
-
-        logFile = open(fileName + '.hex', 'a+')
-
-        logFile.write(data)
+        with open(fileName + '.hex', 'a+') as logFile:
+            logFile.write(data)
 
 
 
